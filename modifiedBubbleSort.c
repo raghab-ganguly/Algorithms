@@ -1,38 +1,47 @@
 #include<stdio.h>
 #include<stdlib.h>
-void modifiedBubbleSort(int arr[],int n){
-	int i,j,temp,swapped;
-
+void swap(int* arr,int i,int j){
+	int temp=arr[i];
+	arr[i]=arr[j];
+	arr[j]=temp;
+}
+void print(int arr[],int size){
+	int i;
+	for(i=0;i<size;i++){
+		printf("%d\t",arr[i]);
+	}
+	printf("\n");
+}
+void bubbleSort(int* arr,int n){
+	int i,j,flag;
 	for(i=0;i<n-1;i++){
-		swapped = 0;
-
+		printf("Pass-%d\n",i+1);
+		flag=0;
 		for(j=0;j<n-i-1;j++){
-			if(arr[j] > arr[j+1]){
-				temp=arr[j];
-				arr[j]=arr[j+1];
-				arr[j+1] = temp;
-				swapped =1;
+			if(arr[j]>arr[j+1]){
+				swap(arr,j,j+1);
+				flag=1;
 			}
+			print(arr,n);
 		}
-		if(swapped ==0){
-			break;
+		if(flag==0){
+				break;
 		}
 	}
 }
 int main(void){
-	int *ptr;
-	int n;
-	printf("Enter the size of the array: ");
-	scanf("%d",&n);
-	ptr=(int *) malloc(sizeof(int) * n);
-	printf("Enter the array elements: \n");
-	for (int i=0;i<n;i++){
-		scanf("%d",&ptr[i]);
+	int size,i;
+	int* arr;
+	printf("Enter the size of that array: ");
+	scanf("%d",&size);
+	arr=(int *)malloc(size * sizeof(int));
+	printf("Enter the elements of thar array:\n");
+	for(i=0;i<size;i++){
+		scanf("%d",&arr[i]);
 	}
-	modifiedBubbleSort(ptr,n);
-	printf("The sorted array: \n");
-	for(int i=0;i<n;i++){
-		printf("%d  ",ptr[i]);
-	}
+	bubbleSort(arr,size);
+	printf("After Sorting:\n");
+	print(arr,size);
+	free(arr);
 	return 0;
 }
